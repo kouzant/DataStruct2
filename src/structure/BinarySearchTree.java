@@ -2,32 +2,34 @@ package structure;
 
 import java.util.ArrayList;
 import java.util.List;
+import entities.Flights;
+import java.util.Date;
 
-class Node<E extends Comparable<? super E>>{
-	private Node<E> leftNode;
-	private Node<E> rightNode;
-	private E data;
+class Node{
+	private Node leftNode;
+	private Node rightNode;
+	private Flights data;
 	
-	public Node<E> getLeftNode(){
+	public Node getLeftNode(){
 		return leftNode;
 	}
-	public Node<E> getRightNode(){
+	public Node getRightNode(){
 		return rightNode;
 	}
-	public E getData(){
+	public Flights getData(){
 		return data;
 	}
-	public void setLeftNode(Node<E> leftNode){
+	public void setLeftNode(Node leftNode){
 		this.leftNode=leftNode;
 	}
-	public void setRightNode(Node<E> rightNode){
+	public void setRightNode(Node rightNode){
 		this.rightNode=rightNode;
 	}
-	public void setData(E data){
+	public void setData(Flights data){
 		this.data=data;
 	}
 	
-	Node(E data){
+	Node(Flights data){
 		this.leftNode=null;
 		this.rightNode=null;
 		this.data=data;
@@ -37,18 +39,18 @@ class Node<E extends Comparable<? super E>>{
 		this.rightNode=null;
 		this.data=null;
 	}
-	Node(Node<E> node){
+	Node(Node node){
 		this.leftNode=node.getLeftNode();
 		this.rightNode=node.getRightNode();
 		this.data=node.getData();
 	}
-	private E minValue(){
+	private Flights minValue(){
 		if(leftNode==null)
 			return data;
 		else return leftNode.minValue();
 	}
-	public boolean remove(E data, Node<E> parent){
-		int compareR=data.compareTo(this.data);
+	public boolean remove(Flights data, Node parent){
+		long compareR=data.getDepTime()-this.data.getDepTime();
 		if(compareR>0){
 			if(rightNode!=null)
 				return rightNode.remove(data, this);
@@ -73,14 +75,14 @@ class Node<E extends Comparable<? super E>>{
 	}
 }
 
-public class BinarySearchTree<E extends Comparable<? super E>>{
-	Node<E> root;
+public class BinarySearchTree<E>{
+	Node root;
 	int size=0;
 	
 	//Adds a new value to the tree
-	public void add(E data){
+	public void add(Flights data){
 		if(root==null && data!=null){
-			root=new Node<E>(data);
+			root=new Node(data);
 			System.out.println("Value "+data+" inserted at the root");
 			size++;
 		}else if(data!=null){
@@ -89,16 +91,18 @@ public class BinarySearchTree<E extends Comparable<? super E>>{
 	}
 	
 	//Adds a new value to the tree
-	private Node<E> add(Node<E> index,E data){
-		Node<E> indexNode=new Node<E>(index);
-		int compareR=indexNode.getData().compareTo(data);
+	private Node add(Node index,Flights data){
+		Node indexNode=new Node(index);
+		long compareR=indexNode.getData().getDepTime()-data.getDepTime();
+		//compareR==0
 		if(compareR==0)
 			return indexNode;
+		//compareR>0
 		if(compareR>0){
 			if(indexNode.getLeftNode()!=null){
 				indexNode.setLeftNode(add(indexNode.getLeftNode(),data));
 			}else{
-				indexNode.setLeftNode(new Node<E>(data));
+				indexNode.setLeftNode(new Node(data));
 				System.out.println("Value "+data+" inserted at left child");
 				size++;
 			}
@@ -106,7 +110,7 @@ public class BinarySearchTree<E extends Comparable<? super E>>{
 			if(indexNode.getRightNode()!=null){
 				indexNode.setRightNode(add(indexNode.getRightNode(),data));
 			}else{
-				indexNode.setRightNode(new Node<E>(data));
+				indexNode.setRightNode(new Node(data));
 				System.out.println("Value "+data+" inserted at right child");
 				size++;
 			}
@@ -115,12 +119,12 @@ public class BinarySearchTree<E extends Comparable<? super E>>{
 	}
 	
 	//Get the value of a node
-	public E get(E index){
+	public Flights get(long index){
 		if(root==null)
 			return null;
-		Node<E> indexNode=root;
-		int compareR;
-		while((compareR=indexNode.getData().compareTo(index))!=0){
+		Node indexNode=root;
+		float compareR;
+		while((compareR=indexNode.getData().getDepTime()-index)!=0){
 			if(compareR>0){
 				if(indexNode.getLeftNode()!=null){
 					indexNode=indexNode.getLeftNode();
@@ -141,12 +145,12 @@ public class BinarySearchTree<E extends Comparable<? super E>>{
 	}
 	
 	//Remove Node
-	public boolean remove(E data){
+	public boolean remove(Flights data){
 		if(root==null){
 			return false;
 		}else{
-			if(root.getData()==data){
-				Node<E> dummyNode=new Node<E>();
+			if(root.getData().getDepTime()==data.getDepTime()){
+				Node dummyNode=new Node(new Flights("",new Date(0),new Date(0)));
 				dummyNode.setLeftNode(root);
 				boolean removeRes=root.remove(data, dummyNode);
 				root=dummyNode.getLeftNode();
@@ -157,12 +161,12 @@ public class BinarySearchTree<E extends Comparable<? super E>>{
 		}
 	}
 	//BST to List
-	public List<E> toList(){
-		List<E> theList=new ArrayList<E>();
+	public List<Flights> toList(){
+		List<Flights> theList=new ArrayList<Flights>();
 		treeToList(root,theList);
 		return theList;
 	}
-	public void treeToList(Node<E> indexNode, List<E> theList){
+	public void treeToList(Node indexNode, List<Flights> theList){
 		if(indexNode!=null){
 			treeToList(indexNode.getLeftNode(), theList);
 			//System.out.println("Left Node");
