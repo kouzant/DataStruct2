@@ -31,9 +31,11 @@ public class Flights {
 	public void setDepartureTime(Date departureTime){
 		this.departureTime=departureTime;
 	}
+	//Get the departure time in EPOCH
 	public long getDepTime(){
 		return departureTime.getTime();
 	}
+	//Get the arrival time in EPOCH
 	public long getArrTime(){
 		return arrivalTime.getTime();
 	}

@@ -1,12 +1,12 @@
 package test;
 
 import structure.*;
+import entities.Flights;
 
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Date;
-import entities.Flights;
 
 public class Bst {
 

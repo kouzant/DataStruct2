@@ -1,8 +1,9 @@
 package structure;
 
+import entities.Flights;
+
 import java.util.ArrayList;
 import java.util.List;
-import entities.Flights;
 import java.util.Date;
 
 class Node{
@@ -123,7 +124,7 @@ public class BinarySearchTree<E>{
 		if(root==null)
 			return null;
 		Node indexNode=root;
-		float compareR;
+		long compareR;
 		while((compareR=indexNode.getData().getDepTime()-index)!=0){
 			if(compareR>0){
 				if(indexNode.getLeftNode()!=null){
