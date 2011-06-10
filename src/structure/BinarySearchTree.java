@@ -47,7 +47,7 @@ public class BinarySearchTree<E extends Comparable<? super E>>{
 	public void add(E data){
 		if(root==null && data!=null){
 			root=new Node<E>(data);
-			System.out.println("Value inserted at the root");
+			System.out.println("Value "+data+" inserted at the root");
 			size++;
 		}else if(data!=null){
 			root=add(root,data);
@@ -65,7 +65,7 @@ public class BinarySearchTree<E extends Comparable<? super E>>{
 				indexNode.setLeftNode(add(indexNode.getLeftNode(),data));
 			}else{
 				indexNode.setLeftNode(new Node<E>(data));
-				System.out.println("Value inserted at left child");
+				System.out.println("Value "+data+" inserted at left child");
 				size++;
 			}
 		}else if(compareR<0){
@@ -73,7 +73,7 @@ public class BinarySearchTree<E extends Comparable<? super E>>{
 				indexNode.setRightNode(add(indexNode.getRightNode(),data));
 			}else{
 				indexNode.setRightNode(new Node<E>(data));
-				System.out.println("Value inserted at right child");
+				System.out.println("Value "+data+" inserted at right child");
 				size++;
 			}
 		}
@@ -88,15 +88,19 @@ public class BinarySearchTree<E extends Comparable<? super E>>{
 		int compareR;
 		while((compareR=indexNode.getData().compareTo(index))!=0){
 			if(compareR>0){
-				if(indexNode.getLeftNode()!=null)
+				if(indexNode.getLeftNode()!=null){
 					indexNode=indexNode.getLeftNode();
-				else
+					System.out.println("Traversed value is: "+indexNode.getData());
+				}else{
 					return null;
+				}
 			}else if(compareR<0){
-				if(indexNode.getRightNode()!=null)
+				if(indexNode.getRightNode()!=null){
 					indexNode=indexNode.getRightNode();
-				else
+					System.out.println("Traversed value is: "+indexNode.getData());
+				}else{
 					return null;
+				}
 			}
 		}
 		return indexNode.getData();
