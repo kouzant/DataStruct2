@@ -1,7 +1,11 @@
 package test;
 
 import structure.*;
+
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Date;
+import entities.Flights;
 
 public class Bst {
 
@@ -10,6 +14,11 @@ public class Bst {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+		
+		/*Date departureTime=new GregorianCalendar(2011,04,15,18,15).getTime();
+		Date arrivalTime=new GregorianCalendar(2011,04,15,20,30).getTime();
+		Flights flight=new Flights("ABC1234",departureTime,arrivalTime);
+		BinarySearchTree<Flights> bst=new BinarySearchTree<Flights>();*/
 		BinarySearchTree<Integer> bst=new BinarySearchTree<Integer>();
 		bst.add(new Integer(3));
 		bst.add(new Integer(2));

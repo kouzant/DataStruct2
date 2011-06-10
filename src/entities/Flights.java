@@ -31,6 +31,12 @@ public class Flights {
 	public void setDepartureTime(Date departureTime){
 		this.departureTime=departureTime;
 	}
+	public long getDepTime(){
+		return departureTime.getTime();
+	}
+	public long getArrTime(){
+		return arrivalTime.getTime();
+	}
 	@Override
 	public String toString(){
 		StringBuilder sb=new StringBuilder();
