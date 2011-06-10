@@ -5,6 +5,7 @@ import entities.Flights;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Date;
+import java.util.Iterator;
 
 class Node{
 	private Node leftNode;
@@ -175,5 +176,17 @@ public class BinarySearchTree<E>{
 			treeToList(indexNode.getRightNode(), theList);
 			//System.out.println("Right Node");
 		}
+	}
+	@Override
+	public String toString(){
+		List<Flights> theList=toList();
+		Iterator<Flights> it=theList.iterator();
+		StringBuilder listBuild=new StringBuilder();
+		while(it.hasNext()){
+			listBuild.append(it.next());
+			listBuild.append("\n");
+		}
+		
+		return listBuild.toString();
 	}
 }

@@ -13,9 +13,7 @@ public class Bst {
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
+	public static void main(String[] args) {		
 		//Start of Add Test
 		Date departureTime=new GregorianCalendar(2011,04,15,18,15).getTime();
 		Date arrivalTime=new GregorianCalendar(2011,04,15,20,30).getTime();
