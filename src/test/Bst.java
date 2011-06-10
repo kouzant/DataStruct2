@@ -21,8 +21,12 @@ public class Bst {
 		
 		List<Integer> lala=bst.toList();
 		System.out.println("BST: "+lala.toString());
-		Integer fifi=bst.get(new Integer(9));
+		Integer fifi=bst.get(new Integer(1));
 		System.out.println("Value "+fifi+" found!");
+		boolean removeRes=bst.remove(new Integer(6));
+		List<Integer> lala2=bst.toList();
+		System.out.println("BST: "+lala2.toString());
+		bst.get(new Integer(5));
 	}
 
 }

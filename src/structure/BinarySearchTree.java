@@ -32,10 +32,44 @@ class Node<E extends Comparable<? super E>>{
 		this.rightNode=null;
 		this.data=data;
 	}
+	Node(){
+		this.leftNode=null;
+		this.rightNode=null;
+		this.data=null;
+	}
 	Node(Node<E> node){
 		this.leftNode=node.getLeftNode();
 		this.rightNode=node.getRightNode();
 		this.data=node.getData();
+	}
+	private E minValue(){
+		if(leftNode==null)
+			return data;
+		else return leftNode.minValue();
+	}
+	public boolean remove(E data, Node<E> parent){
+		int compareR=data.compareTo(this.data);
+		if(compareR>0){
+			if(rightNode!=null)
+				return rightNode.remove(data, this);
+			else
+				return false;
+		}else if(compareR<0){
+			if(leftNode!=null)
+				return leftNode.remove(data, this);
+			else
+				return false;
+		}else{
+			if(leftNode!=null && rightNode!=null){
+				this.data=rightNode.minValue();
+				rightNode.remove(this.data, this);
+			}else if(parent.leftNode==this){
+				parent.leftNode=(leftNode!=null)?leftNode:rightNode;
+			}else if(parent.rightNode==this){
+				parent.rightNode=(leftNode!=null)?leftNode:rightNode;
+			}
+			return true;
+		}
 	}
 }
 
@@ -106,6 +140,22 @@ public class BinarySearchTree<E extends Comparable<? super E>>{
 		return indexNode.getData();
 	}
 	
+	//Remove Node
+	public boolean remove(E data){
+		if(root==null){
+			return false;
+		}else{
+			if(root.getData()==data){
+				Node<E> dummyNode=new Node<E>();
+				dummyNode.setLeftNode(root);
+				boolean removeRes=root.remove(data, dummyNode);
+				root=dummyNode.getLeftNode();
+				return removeRes;
+			}else{
+				return root.remove(data, null);
+			}
+		}
+	}
 	//BST to List
 	public List<E> toList(){
 		List<E> theList=new ArrayList<E>();
