@@ -35,4 +35,11 @@ public class Printer {
 		
 		return addBuildA.toString();
 	}
+	public static String printDel(){
+		StringBuilder delBuild=new StringBuilder();
+		delBuild.append("Enter flight's code:");
+		delBuild.append("\n");
+		
+		return delBuild.toString();
+	}
 }

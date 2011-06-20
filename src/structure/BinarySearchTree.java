@@ -80,7 +80,7 @@ class Node{
 public class BinarySearchTree<E>{
 	Node root;
 	int size=0;
-	
+	Node resultNode=null;
 	//Adds a new value to the tree
 	public void add(Flights data){
 		if(root==null && data!=null){
@@ -168,7 +168,8 @@ public class BinarySearchTree<E>{
 		treeToList(root,theList);
 		return theList;
 	}
-	public void treeToList(Node indexNode, List<Flights> theList){
+	//inOrder
+	private void treeToList(Node indexNode, List<Flights> theList){
 		if(indexNode!=null){
 			treeToList(indexNode.getLeftNode(), theList);
 			//System.out.println("Left Node");
@@ -176,6 +177,22 @@ public class BinarySearchTree<E>{
 			treeToList(indexNode.getRightNode(), theList);
 			//System.out.println("Right Node");
 		}
+	}
+	public void searchNode(Node indexNode, String flightCode){
+		if(indexNode!=null){
+			if(resultNode==null){
+				System.err.println("resultNode is NULL");
+			}
+			if(indexNode.getData().getFlightCode().equals(flightCode))
+				resultNode=indexNode;
+			searchNode(indexNode.getLeftNode(), flightCode);
+			searchNode(indexNode.getRightNode(), flightCode);
+		}
+	}
+	public void delFlight(String flightCode){
+		searchNode(root,flightCode);
+		Flights delFlight=resultNode.getData();
+		remove(delFlight);
 	}
 	@Override
 	public String toString(){

@@ -14,6 +14,7 @@ public class Main {
 		BinarySearchTree<Flights> bst=new BinarySearchTree<Flights>();
 		Business bus=new Business();
 		bus.setBST(bst);
+		bus.loadFlights();
 		boolean running=true;
 		Scanner in=new Scanner(System.in);
 		while(running){
@@ -34,6 +35,12 @@ public class Main {
 			//List flights
 			case 2:
 				System.out.println(bst);
+				break;
+			case 3:
+				Scanner delFl=new Scanner(System.in);
+				System.out.println(Printer.printDel());
+				String delFlightCode=delFl.nextLine();
+				bst.delFlight(delFlightCode);
 				break;
 			case 0:
 				running=false;
