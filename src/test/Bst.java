@@ -41,11 +41,7 @@ public class Bst {
 		flight=new Flights("GHI5678", arrivalTime, departureTime);
 		bst.add(flight);
 		
-		List<Flights> list=bst.toList();
-		Iterator<Flights> listIt=list.iterator();
-		while(listIt.hasNext()){
-			System.out.println(listIt.next().toString());	
-		}
+		System.out.println(bst);
 		//End of Add Test
 		
 		//Start of Get Test
@@ -58,11 +54,7 @@ public class Bst {
 		
 		//Start of Remove Test
 		bst.remove(myFlight);
-		list=bst.toList();
-		listIt=list.iterator();
-		while(listIt.hasNext()){
-			System.out.println(listIt.next().toString());	
-		}
+		System.out.println(bst);
 		//End of Remove Test
 	}
 

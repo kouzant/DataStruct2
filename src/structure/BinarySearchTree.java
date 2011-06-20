@@ -1,6 +1,6 @@
 package structure;
 
-import entities.Flights;
+import entities.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -163,17 +163,17 @@ public class BinarySearchTree<E>{
 		}
 	}
 	//BST to List
-	public List<Flights> toList(){
-		List<Flights> theList=new ArrayList<Flights>();
+	public SimplyLinkedList<Flights> toList(){
+		SimplyLinkedList<Flights> theList=new SimplyLinkedList<Flights>();
 		treeToList(root,theList);
 		return theList;
 	}
 	//inOrder
-	private void treeToList(Node indexNode, List<Flights> theList){
+	private void treeToList(Node indexNode, SimplyLinkedList<Flights> theList){
 		if(indexNode!=null){
 			treeToList(indexNode.getLeftNode(), theList);
 			//System.out.println("Left Node");
-			theList.add(indexNode.getData());
+			theList.addTail(indexNode.getData());
 			treeToList(indexNode.getRightNode(), theList);
 			//System.out.println("Right Node");
 		}
@@ -196,13 +196,9 @@ public class BinarySearchTree<E>{
 	}
 	@Override
 	public String toString(){
-		List<Flights> theList=toList();
-		Iterator<Flights> it=theList.iterator();
+		SimplyLinkedList<Flights> theList=toList();
 		StringBuilder listBuild=new StringBuilder();
-		while(it.hasNext()){
-			listBuild.append(it.next());
-			listBuild.append("\n");
-		}
+		listBuild.append(theList);
 		
 		return listBuild.toString();
 	}

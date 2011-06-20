@@ -9,6 +9,8 @@ public class Printer {
 		mainBuild.append("\n");
 		mainBuild.append("2 -- List flights");
 		mainBuild.append("\n");
+		mainBuild.append("3 -- Delete flight");
+		mainBuild.append("\n");
 		mainBuild.append("0 -- Exit");
 		mainBuild.append("\n");
 		
