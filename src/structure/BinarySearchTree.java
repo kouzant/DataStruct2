@@ -11,6 +11,7 @@ class Node{
 	private Node leftNode;
 	private Node rightNode;
 	private Flights data;
+	private Date MaxArr;
 	
 	public Node getLeftNode(){
 		return leftNode;
@@ -21,6 +22,9 @@ class Node{
 	public Flights getData(){
 		return data;
 	}
+	public Date getMaxArr(){
+		return MaxArr;
+	}
 	public void setLeftNode(Node leftNode){
 		this.leftNode=leftNode;
 	}
@@ -30,21 +34,27 @@ class Node{
 	public void setData(Flights data){
 		this.data=data;
 	}
+	public void setMaxArr(Date MaxArr){
+		this.MaxArr=MaxArr;
+	}
 	
 	Node(Flights data){
 		this.leftNode=null;
 		this.rightNode=null;
 		this.data=data;
+		this.MaxArr=null;
 	}
 	Node(){
 		this.leftNode=null;
 		this.rightNode=null;
 		this.data=null;
+		this.MaxArr=null;
 	}
 	Node(Node node){
 		this.leftNode=node.getLeftNode();
 		this.rightNode=node.getRightNode();
 		this.data=node.getData();
+		this.MaxArr=node.getMaxArr();
 	}
 	private Flights minValue(){
 		if(leftNode==null)
@@ -85,6 +95,7 @@ public class BinarySearchTree<E>{
 	public void add(Flights data){
 		if(root==null && data!=null){
 			root=new Node(data);
+			root.setMaxArr(data.getArrivalTime());
 			System.out.println("Value "+data+" inserted at the root");
 			size++;
 		}else if(data!=null){
@@ -105,6 +116,8 @@ public class BinarySearchTree<E>{
 				indexNode.setLeftNode(add(indexNode.getLeftNode(),data));
 			}else{
 				indexNode.setLeftNode(new Node(data));
+				//Set MaxArr
+				indexNode.getLeftNode().setMaxArr(data.getArrivalTime());
 				System.out.println("Value "+data+" inserted at left child");
 				size++;
 			}
@@ -113,6 +126,8 @@ public class BinarySearchTree<E>{
 				indexNode.setRightNode(add(indexNode.getRightNode(),data));
 			}else{
 				indexNode.setRightNode(new Node(data));
+				//Set MaxArr
+				indexNode.getRightNode().setMaxArr(data.getArrivalTime());
 				System.out.println("Value "+data+" inserted at right child");
 				size++;
 			}
@@ -171,6 +186,8 @@ public class BinarySearchTree<E>{
 	//inOrder
 	private void treeToList(Node indexNode, SimplyLinkedList<Flights> theList){
 		if(indexNode!=null){
+			System.out.println("IndexNode: "+indexNode.getData().getFlightCode());
+			System.out.println("MaxArr: "+indexNode.getMaxArr());
 			treeToList(indexNode.getLeftNode(), theList);
 			//System.out.println("Left Node");
 			theList.addTail(indexNode.getData());
@@ -180,9 +197,6 @@ public class BinarySearchTree<E>{
 	}
 	public void searchNode(Node indexNode, String flightCode){
 		if(indexNode!=null){
-			if(resultNode==null){
-				System.err.println("resultNode is NULL");
-			}
 			if(indexNode.getData().getFlightCode().equals(flightCode))
 				resultNode=indexNode;
 			searchNode(indexNode.getLeftNode(), flightCode);
