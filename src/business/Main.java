@@ -30,7 +30,7 @@ public class Main {
 				String departureTime=inAdd.nextLine();
 				System.out.println(Printer.printaddArr());
 				String arrivalTime=inAdd.nextLine();
-				bus.addFlight(flightCode, arrivalTime, departureTime);
+				bus.addFlight(flightCode, departureTime, arrivalTime);
 				break;
 			//List flights
 			case 2:

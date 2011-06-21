@@ -7,7 +7,7 @@ public class Flights {
 	private Date arrivalTime;
 	private Date departureTime;
 	
-	public Flights(String flightCode, Date arrivalTime, Date departureTime){
+	public Flights(String flightCode, Date departureTime, Date arrivalTime){
 		this.flightCode=flightCode;
 		this.arrivalTime=arrivalTime;
 		this.departureTime=departureTime;

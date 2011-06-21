@@ -11,7 +11,7 @@ class Node{
 	private Node leftNode;
 	private Node rightNode;
 	private Flights data;
-	private Date MaxArr;
+	private long MaxArr;
 	
 	public Node getLeftNode(){
 		return leftNode;
@@ -22,7 +22,7 @@ class Node{
 	public Flights getData(){
 		return data;
 	}
-	public Date getMaxArr(){
+	public long getMaxArr(){
 		return MaxArr;
 	}
 	public void setLeftNode(Node leftNode){
@@ -34,7 +34,7 @@ class Node{
 	public void setData(Flights data){
 		this.data=data;
 	}
-	public void setMaxArr(Date MaxArr){
+	public void setMaxArr(long MaxArr){
 		this.MaxArr=MaxArr;
 	}
 	
@@ -42,13 +42,13 @@ class Node{
 		this.leftNode=null;
 		this.rightNode=null;
 		this.data=data;
-		this.MaxArr=null;
+		this.MaxArr=0L;
 	}
 	Node(){
 		this.leftNode=null;
 		this.rightNode=null;
 		this.data=null;
-		this.MaxArr=null;
+		this.MaxArr=0L;
 	}
 	Node(Node node){
 		this.leftNode=node.getLeftNode();
@@ -91,21 +91,36 @@ public class BinarySearchTree<E>{
 	Node root;
 	int size=0;
 	Node resultNode=null;
+	//Simply Linked List used as stack
+	SimplyLinkedList<Node> travPath=new SimplyLinkedList<Node>();
+	
 	//Adds a new value to the tree
 	public void add(Flights data){
 		if(root==null && data!=null){
 			root=new Node(data);
-			root.setMaxArr(data.getArrivalTime());
+			root.setMaxArr(data.getArrTime());
 			System.out.println("Value "+data+" inserted at the root");
 			size++;
 		}else if(data!=null){
 			root=add(root,data);
+			
+			long curArr=data.getArrTime();
+			while(travPath.getLength()!=0){
+				Node index=travPath.removeHead();
+				long indexMax=index.getMaxArr();
+				if(curArr>indexMax){
+					index.setMaxArr(curArr);
+				}else{
+					break;
+				}
+			}
 		}
 	}
 	
 	//Adds a new value to the tree
 	private Node add(Node index,Flights data){
 		Node indexNode=new Node(index);
+		travPath.addHead(indexNode);
 		long compareR=indexNode.getData().getDepTime()-data.getDepTime();
 		//compareR==0
 		if(compareR==0)
@@ -117,7 +132,7 @@ public class BinarySearchTree<E>{
 			}else{
 				indexNode.setLeftNode(new Node(data));
 				//Set MaxArr
-				indexNode.getLeftNode().setMaxArr(data.getArrivalTime());
+				indexNode.getLeftNode().setMaxArr(data.getArrTime());
 				System.out.println("Value "+data+" inserted at left child");
 				size++;
 			}
@@ -127,7 +142,7 @@ public class BinarySearchTree<E>{
 			}else{
 				indexNode.setRightNode(new Node(data));
 				//Set MaxArr
-				indexNode.getRightNode().setMaxArr(data.getArrivalTime());
+				indexNode.getRightNode().setMaxArr(data.getArrTime());
 				System.out.println("Value "+data+" inserted at right child");
 				size++;
 			}
@@ -187,7 +202,7 @@ public class BinarySearchTree<E>{
 	private void treeToList(Node indexNode, SimplyLinkedList<Flights> theList){
 		if(indexNode!=null){
 			System.out.println("IndexNode: "+indexNode.getData().getFlightCode());
-			System.out.println("MaxArr: "+indexNode.getMaxArr());
+			System.out.println("MaxArr: "+new Date(indexNode.getMaxArr()));
 			treeToList(indexNode.getLeftNode(), theList);
 			//System.out.println("Left Node");
 			theList.addTail(indexNode.getData());
