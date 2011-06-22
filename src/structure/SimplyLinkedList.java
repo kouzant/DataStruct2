@@ -293,6 +293,17 @@ public class SimplyLinkedList<E> {
 		return length==0?true:false;
 	}
 	
+	public boolean contains(E index){
+		SNode<E> tmpNode=head;
+		boolean exists=false;
+		while(tmpNode.getNextNode()!=null){
+			if(tmpNode.getValue().equals(index))
+				exists=true;
+			tmpNode=tmpNode.getNextNode();
+		}
+		
+		return exists;
+	}
 	/**
 	 * Επεστρέφει τις τιμές κάθε κόμβου στη λίστα.
 	 * 

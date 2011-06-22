@@ -226,13 +226,15 @@ public class BinarySearchTree<E>{
 	}
 	public SimplyLinkedList<Flights> searchPeriod(Date startTime, Date finishTime){
 		periodS=new SimplyLinkedList<Flights>();
-		dummy(root, startTime, finishTime);
+		searchPeriodDep(root, startTime, finishTime);
+		searchPeriodArr(root, startTime, finishTime);
 		
 		return periodS;
 	}
 	
-	public void dummy(Node indexNode, Date startTime, Date finishTime){
+	private void searchPeriodDep(Node indexNode, Date startTime, Date finishTime){
 		if(indexNode!=null){
+			System.err.println(indexNode.getData().getFlightCode());
 			float indexDep=indexNode.getData().getDepartureTime().getTime();
 			if(indexDep>=startTime.getTime() && indexDep<=finishTime.getTime()){
 				//Departure Time between given period
@@ -240,11 +242,22 @@ public class BinarySearchTree<E>{
 			}
 			
 			if(indexDep>=finishTime.getTime()){
-				dummy(indexNode.getLeftNode(), startTime, finishTime);
+				searchPeriodDep(indexNode.getLeftNode(), startTime, finishTime);
 			}else if(indexDep<finishTime.getTime() && indexDep>=startTime.getTime()){
-				dummy(indexNode.getLeftNode(), startTime, finishTime);
-				dummy(indexNode.getRightNode(), startTime, finishTime);
+				searchPeriodDep(indexNode.getLeftNode(), startTime, finishTime);
+				searchPeriodDep(indexNode.getRightNode(), startTime, finishTime);
 			}
+		}
+	}
+	private void searchPeriodArr(Node indexNode, Date startTime, Date finishTime){
+		if(indexNode!=null){
+			float indexArr=indexNode.getData().getArrivalTime().getTime();
+			if(indexArr>=startTime.getTime() && indexArr<=finishTime.getTime()){
+				if(!periodS.contains(indexNode.getData()))
+					periodS.addTail(indexNode.getData());
+			}
+			searchPeriodArr(indexNode.getLeftNode(), startTime, finishTime);
+			searchPeriodArr(indexNode.getRightNode(), startTime, finishTime);
 		}
 	}
 	
