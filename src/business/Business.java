@@ -2,6 +2,7 @@ package business;
 
 import entities.Flights;
 import structure.BinarySearchTree;
+import structure.SimplyLinkedList;
 
 import java.util.GregorianCalendar;
 import java.util.Date;
@@ -71,5 +72,17 @@ public class Business {
 		Flights newFlight=new Flights(flightCode,departureTime,arrivalTime);
 		//Add flight to the binary search tree
 		bst.add(newFlight);
+	}
+	public void searchFlight(String startTime, String finishTime){
+		String[] tmpSt=startTime.split("[:]");
+		String[] tmpFi=finishTime.split("[:]");
+		Date startT=new GregorianCalendar(Integer.parseInt(tmpSt[0]),
+				Integer.parseInt(tmpSt[1])-1, Integer.parseInt(tmpSt[2]),
+				Integer.parseInt(tmpSt[3]), Integer.parseInt(tmpSt[4])).getTime();
+		Date finishT=new GregorianCalendar(Integer.parseInt(tmpFi[0]),
+				Integer.parseInt(tmpFi[1])-1,Integer.parseInt(tmpFi[2]),
+				Integer.parseInt(tmpFi[3]), Integer.parseInt(tmpFi[4])).getTime();
+		SimplyLinkedList<Flights> periodS=bst.searchPeriod(startT, finishT);
+		System.out.println(periodS);
 	}
 }

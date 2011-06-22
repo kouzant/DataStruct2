@@ -42,6 +42,14 @@ public class Main {
 				String delFlightCode=delFl.nextLine();
 				bst.delFlight(delFlightCode);
 				break;
+			case 4:
+				Scanner inSea=new Scanner(System.in);
+				System.out.println(Printer.printSearchPerA());
+				String startTime=inSea.nextLine();
+				System.out.println(Printer.printSearchPerB());
+				String finishTime=inSea.nextLine();
+				bus.searchFlight(startTime, finishTime);
+				break;
 			case 0:
 				running=false;
 				break;

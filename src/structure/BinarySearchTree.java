@@ -93,6 +93,7 @@ public class BinarySearchTree<E>{
 	Node resultNode=null;
 	//Simply Linked List used as stack
 	SimplyLinkedList<Node> travPath=new SimplyLinkedList<Node>();
+	SimplyLinkedList<Flights> periodS;
 	
 	//Adds a new value to the tree
 	public void add(Flights data){
@@ -223,6 +224,30 @@ public class BinarySearchTree<E>{
 		Flights delFlight=resultNode.getData();
 		remove(delFlight);
 	}
+	public SimplyLinkedList<Flights> searchPeriod(Date startTime, Date finishTime){
+		periodS=new SimplyLinkedList<Flights>();
+		dummy(root, startTime, finishTime);
+		
+		return periodS;
+	}
+	
+	public void dummy(Node indexNode, Date startTime, Date finishTime){
+		if(indexNode!=null){
+			float indexDep=indexNode.getData().getDepartureTime().getTime();
+			if(indexDep>=startTime.getTime() && indexDep<=finishTime.getTime()){
+				//Departure Time between given period
+				periodS.addTail(indexNode.getData());
+			}
+			
+			if(indexDep>=finishTime.getTime()){
+				dummy(indexNode.getLeftNode(), startTime, finishTime);
+			}else if(indexDep<finishTime.getTime() && indexDep>=startTime.getTime()){
+				dummy(indexNode.getLeftNode(), startTime, finishTime);
+				dummy(indexNode.getRightNode(), startTime, finishTime);
+			}
+		}
+	}
+	
 	@Override
 	public String toString(){
 		SimplyLinkedList<Flights> theList=toList();

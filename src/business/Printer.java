@@ -11,6 +11,8 @@ public class Printer {
 		mainBuild.append("\n");
 		mainBuild.append("3 -- Delete flight");
 		mainBuild.append("\n");
+		mainBuild.append("4 -- Search within a period");
+		mainBuild.append("\n");
 		mainBuild.append("0 -- Exit");
 		mainBuild.append("\n");
 		
@@ -43,5 +45,19 @@ public class Printer {
 		delBuild.append("\n");
 		
 		return delBuild.toString();
+	}
+	public static String printSearchPerA(){
+		StringBuilder seBuild=new StringBuilder();
+		seBuild.append("Enter start time: (YYYY:MM:DD:HH:MM)");
+		seBuild.append("\n");
+		
+		return seBuild.toString();
+	}
+	public static String printSearchPerB(){
+		StringBuilder seBuild=new StringBuilder();
+		seBuild.append("Enter finish time: (YYYY:MM:DD:HH:MM)");
+		seBuild.append("\n");
+		
+		return seBuild.toString();
 	}
 }
