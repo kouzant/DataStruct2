@@ -50,6 +50,11 @@ public class Main {
 				String finishTime=inSea.nextLine();
 				bus.searchFlight(startTime, finishTime);
 				break;
+			case 5:
+				Scanner inSeA=new Scanner(System.in);
+				System.out.println(Printer.printSearchAf());
+				String time=inSeA.nextLine();
+				break;
 			case 0:
 				running=false;
 				break;

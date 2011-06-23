@@ -13,6 +13,8 @@ public class Printer {
 		mainBuild.append("\n");
 		mainBuild.append("4 -- Search within a period");
 		mainBuild.append("\n");
+		mainBuild.append("5 -- Flight after specified time");
+		mainBuild.append("\n");
 		mainBuild.append("0 -- Exit");
 		mainBuild.append("\n");
 		
@@ -59,5 +61,12 @@ public class Printer {
 		seBuild.append("\n");
 		
 		return seBuild.toString();
+	}
+	public static String printSearchAf(){
+		StringBuilder seABuild=new StringBuilder();
+		seABuild.append("Enter time: (YYYY:MM:DD:HH:MM)");
+		seABuild.append("\n");
+		
+		return seABuild.toString();
 	}
 }
