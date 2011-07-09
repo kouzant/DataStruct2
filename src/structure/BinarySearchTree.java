@@ -510,6 +510,10 @@ public class BinarySearchTree<E>{
 	 * κωδικό πτήσης.
 	 * @param indexNode Ο τρέχων κόμβος.
 	 * @param flightCode Ο κωδικός πτήσης.
+	 * @see Node#getData()
+	 * @see Flights#getFlightCode()
+	 * @see Node#getLeftNode()
+	 * @see Node#getRightNode()
 	 */
 	public void searchNode(Node indexNode, String flightCode){
 		//Αν ο τρέχων κόμβος δεν είναι null
@@ -524,12 +528,35 @@ public class BinarySearchTree<E>{
 			searchNode(indexNode.getRightNode(), flightCode);
 		}
 	}
+	/**
+	 * Διαγράφει ένα κόμβο σύμφωνα με τον κωδικό πτήσης.
+	 * 
+	 * @param flightCode Ο κωδικός πτήσης.
+	 * @see BinarySearchTree#searchNode(Node, String)
+	 * @see Node#getData()
+	 * @see BinarySearchTree#remove(Flights)
+	 */
 	public void delFlight(String flightCode){
+		//Βρίσκει ποιος κόμβος έχει το συγκεκριμένο κωδικό πτήσης
 		searchNode(root,flightCode);
+		//Παίρνει τα δεδομένα από το κόμβο
 		Flights delFlight=resultNode.getData();
+		//Διαγράφει το κόμβο με τα συγκεκριμένα δεδομένα από το δένδρο.
 		remove(delFlight);
 	}
+	/**
+	 * Δοθέντος ενός χρονικού διαστήματος επιστρέφει τις πτήσεις που είναι
+	 * σε εξέλιξη στο διάστημα αυτό.
+	 * 
+	 * @param startTime Αρχή του διαστήματος σε μορφή YYYY:MM:DD:HH:MM
+	 * @param finishTime Τέλος του διαστήματος σε μορφή YYYY:MM:DD:HH:MM
+	 * @return Μία λίστα με τις πτήσεις που είναι σε εξέλιξη.
+	 * @see SimplyLinkedList#SimplyLinkedList()
+	 * @see BinarySearchTree#searchPeriodArr(Node, Date, Date)
+	 * @see BinarySearchTree#searchPeriodDep(Node, Date, Date)
+	 */
 	public SimplyLinkedList<Flights> searchPeriod(Date startTime, Date finishTime){
+		//Δημιουργούμε μία νέα μονά συνδεδεμένη λίστα
 		periodS=new SimplyLinkedList<Flights>();
 		searchPeriodDep(root, startTime, finishTime);
 		searchPeriodArr(root, startTime, finishTime);
@@ -561,35 +588,79 @@ public class BinarySearchTree<E>{
 			}
 		}
 	}
+	/**
+	 * Ψάχνει για πτήσεις στο δένδρο που έχουν ημερομηνία αναχώρησης μέσα σε ένα
+	 * συγκεκριμένο διάστημα.
+	 * 
+	 * @param indexNode Ο τρέχων κόμβος.
+	 * @param startTime Η αρχή του διαστήματος αναζήτησης.
+	 * @param finishTime Το τέλος του διαστήματος αναζήτησης.
+	 * @see Node#getData()
+	 * @see Flights#getDepartureTime()
+	 * @see SimplyLinkedList#addTail(Object)
+	 */
 	private void searchPeriodDep(Node indexNode, Date startTime, Date finishTime){
+		//Αν ο τρέχων κόμβος δεν είναι null
 		if(indexNode!=null){
 			System.err.println(indexNode.getData().getFlightCode());
+			//Παίρνουμε την ημ. αναχ. του τρέχοντα κόμβου
 			long indexDep=indexNode.getData().getDepartureTime().getTime();
+			//Αν η ημ. αναχ. του τρέχοντα κόμβου είναι μεταξύ του συγκεκριμένου
+			//διαστήματος
 			if(indexDep>=startTime.getTime() && indexDep<=finishTime.getTime()){
-				//Departure Time between given period
+				//Προσθέτουμε τον κόμβο στη λίστα
 				periodS.addTail(indexNode.getData());
 			}
 			
+			//Αν η ημ. αναχ. του τρέχοντα κόμβου είναι μεγαλύτερη από το τέλος
+			//του διαστήματος, τότε κάνουμε αναζήτηση του αριστερού υποδένδρου
 			if(indexDep>=finishTime.getTime()){
 				searchPeriodDep(indexNode.getLeftNode(), startTime, finishTime);
+			//Αν η ημ. αναχ. είναι μικρότερη του τέλους του διαστήματος και
+			//μεγαλύτερη ή ίση από την αρχή τότε συνεχίζουμε την αναζήτηση
+			//στο υπόλοιπο δένδρο
 			}else if(indexDep<finishTime.getTime() && indexDep>=startTime.getTime()){
 				searchPeriodDep(indexNode.getLeftNode(), startTime, finishTime);
 				searchPeriodDep(indexNode.getRightNode(), startTime, finishTime);
 			}
 		}
 	}
+	/**
+	 * Ψάχνει για πτήσεις στο δένδρο που έχουν ημερομηνία άφιξης μέσα σε ένα
+	 * συγκεκριμένο διάστημα.
+	 * 
+	 * @param indexNode Ο τρέχων κόμβος.
+	 * @param startTime Η αρχή του διαστήματος.
+	 * @param finishTime Το τέλος του διαστήματος.
+	 * @see Node#getData()
+	 * @see Flights#getArrivalTime()
+	 * @see SimplyLinkedList#contains(Object)
+	 * @see SimplyLinkedList#addTail(Object)
+	 */
 	private void searchPeriodArr(Node indexNode, Date startTime, Date finishTime){
+		//Αν ο τρέχων κόμβος δεν είναι null
 		if(indexNode!=null){
+			//Παίρνουμε την ημ. αφ. του τρέχοντα κόμβου
 			float indexArr=indexNode.getData().getArrivalTime().getTime();
+			//Αν η ημ. αφ. του τρέχοντα κόμβου είναι μεταξύ του διαστήματος
 			if(indexArr>=startTime.getTime() && indexArr<=finishTime.getTime()){
+				//Αν δεν υπάρχει ήδη στη λίστα
 				if(!periodS.contains(indexNode.getData()))
+					//Προσθέτουμε τον τρέχοντα κόμβο στη λίστα
 					periodS.addTail(indexNode.getData());
 			}
+			//Καλούμε αναδρομικά τη μέθοδο για όλο το δένδρο
 			searchPeriodArr(indexNode.getLeftNode(), startTime, finishTime);
 			searchPeriodArr(indexNode.getRightNode(), startTime, finishTime);
 		}
 	}
-	
+	/**
+	 * Μέθοδος που τυπώνει το δυαδικό δένδρο σε ενδοδιάταξη
+	 * 
+	 * @return Το δένδρο σε ενδοδιάταξη.
+	 * @see BinarySearchTree#toList()
+	 * @see SimplyLinkedList#toString()
+	 */
 	@Override
 	public String toString(){
 		SimplyLinkedList<Flights> theList=toList();
