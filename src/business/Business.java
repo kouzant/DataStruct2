@@ -90,6 +90,6 @@ public class Business {
 		Date timestamp=new GregorianCalendar(Integer.parseInt(tmpTime[0]),
 				Integer.parseInt(tmpTime[1])-1, Integer.parseInt(tmpTime[2]),
 				Integer.parseInt(tmpTime[3]), Integer.parseInt(tmpTime[4])).getTime();
-		Flights flight=bst.searchAfter(timestamp);
+		//Flights flight=bst.searchAfter(timestamp);
 	}
 }

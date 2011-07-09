@@ -227,7 +227,7 @@ public class BinarySearchTree<E>{
 					tmpMaxLArr=delNode.getLeftNode().getMaxArr();
 				if(delNode.getRightNode()!=null)
 					tmpMaxRArr=delNode.getRightNode().getMaxArr();
-				tmpMaxArr=(tmpMaxLArr>tmpMaxRArr)?tmpMaxLArr:tmpMaxRArr;
+				tmpMaxArr=(tmpMaxLArr>=tmpMaxRArr)?tmpMaxLArr:tmpMaxRArr;
 				
 				travDelPath.addHead(root);
 				boolean removeRes=root.remove(data, null, travDelPath);
@@ -298,9 +298,9 @@ public class BinarySearchTree<E>{
 		return periodS;
 	}
 	
-	public Flight searchAfter(Date timestamp){
-		long time=timestamp.getTime();
-	}
+//	public Flight searchAfter(Date timestamp){
+//		long time=timestamp.getTime();
+//	}
 	
 	private void searchAfter(Node indexNode, long time){
 		if(indexNode!=null){

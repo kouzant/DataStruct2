@@ -36,12 +36,14 @@ public class Main {
 			case 2:
 				System.out.println(bst);
 				break;
+			//Delete a flight
 			case 3:
 				Scanner delFl=new Scanner(System.in);
 				System.out.println(Printer.printDel());
 				String delFlightCode=delFl.nextLine();
 				bst.delFlight(delFlightCode);
 				break;
+			//Search within a period of time
 			case 4:
 				Scanner inSea=new Scanner(System.in);
 				System.out.println(Printer.printSearchPerA());
@@ -50,6 +52,7 @@ public class Main {
 				String finishTime=inSea.nextLine();
 				bus.searchFlight(startTime, finishTime);
 				break;
+			//Search the later flight
 			case 5:
 				Scanner inSeA=new Scanner(System.in);
 				System.out.println(Printer.printSearchAf());
