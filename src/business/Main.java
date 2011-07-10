@@ -85,12 +85,6 @@ public class Main {
 				//Κλήση της μεθόδου για την αναζήτηση
 				bus.searchFlight(startTime, finishTime);
 				break;
-			//Search the later flight
-			case 5:
-				Scanner inSeA=new Scanner(System.in);
-				System.out.println(Printer.printSearchAf());
-				String time=inSeA.nextLine();
-				break;
 			//Περίπτωση για την έξοδο από την εφαρμογή.
 			case 0:
 				running=false;

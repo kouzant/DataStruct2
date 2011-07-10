@@ -221,7 +221,6 @@ public class BinarySearchTree<E>{
 			root=new Node(data);
 			//Ορίζουμε το πεδίο MaxArr
 			root.setMaxArr(data.getArrTime());
-			System.out.println("Value "+data+" inserted at the root");
 			size++;
 		//Αλλιώς αν τα δεδομένα δεν είναι null
 		}else if(data!=null){
@@ -287,7 +286,6 @@ public class BinarySearchTree<E>{
 				indexNode.setLeftNode(new Node(data));
 				//Ορίζει το πεδίο MaxArr
 				indexNode.getLeftNode().setMaxArr(data.getArrTime());
-				System.out.println("Value "+data+" inserted at left child");
 				//Αυξάνει το μέγεθος της λίστας
 				size++;
 			}
@@ -300,38 +298,10 @@ public class BinarySearchTree<E>{
 				indexNode.setRightNode(new Node(data));
 				//Set MaxArr
 				indexNode.getRightNode().setMaxArr(data.getArrTime());
-				System.out.println("Value "+data+" inserted at right child");
 				size++;
 			}
 		}
 		return indexNode;
-	}
-	
-	//Get the value of a node
-	//Maybe I'll delete this method!
-	public Flights get(long index){
-		if(root==null)
-			return null;
-		Node indexNode=root;
-		long compareR;
-		while((compareR=indexNode.getData().getDepTime()-index)!=0){
-			if(compareR>0){
-				if(indexNode.getLeftNode()!=null){
-					indexNode=indexNode.getLeftNode();
-					System.out.println("Traversed value is: "+indexNode.getData());
-				}else{
-					return null;
-				}
-			}else if(compareR<0){
-				if(indexNode.getRightNode()!=null){
-					indexNode=indexNode.getRightNode();
-					System.out.println("Traversed value is: "+indexNode.getData());
-				}else{
-					return null;
-				}
-			}
-		}
-		return indexNode.getData();
 	}
 	/**
 	 * Δοθέντος μιας ημερομηνίας αναχώρησης βρίσκει σε ποιο κόμβο ανήκει.
@@ -358,7 +328,6 @@ public class BinarySearchTree<E>{
 				if(indexNode.getLeftNode()!=null){
 					//Θέτουμε ως τρέχοντα κόμβο το αριστερό παιδί
 					indexNode=indexNode.getLeftNode();
-					System.out.println("Traversed value is: "+indexNode.getData());
 				}else{
 					return null;
 				}
@@ -367,7 +336,6 @@ public class BinarySearchTree<E>{
 			}else if(compareR<0){
 				if(indexNode.getRightNode()!=null){
 					indexNode=indexNode.getRightNode();
-					System.out.println("Traversed value is: "+indexNode.getData());
 				}else{
 					return null;
 				}
@@ -463,7 +431,6 @@ public class BinarySearchTree<E>{
 					}
 				}
 				
-				System.out.println(travDelPath);
 				return removeRes;
 			}
 		}
@@ -494,15 +461,11 @@ public class BinarySearchTree<E>{
 	private void treeToList(Node indexNode, SimplyLinkedList<Flights> theList){
 		//Αν ο κόμβος δεν είναι null
 		if(indexNode!=null){
-			System.out.println("IndexNode: "+indexNode.getData().getFlightCode());
-			System.out.println("MaxArr: "+new Date(indexNode.getMaxArr()));
 			//Αναδρομικό κάλεσμα της ίδιας μεθόδου
 			treeToList(indexNode.getLeftNode(), theList);
-			//System.out.println("Left Node");
 			//Προσθέτει τον κόμβο στο τέλος της λίστας.
 			theList.addTail(indexNode.getData());
 			treeToList(indexNode.getRightNode(), theList);
-			//System.out.println("Right Node");
 		}
 	}
 	/**
@@ -563,31 +526,6 @@ public class BinarySearchTree<E>{
 		
 		return periodS;
 	}
-	
-//	public Flight searchAfter(Date timestamp){
-//		long time=timestamp.getTime();
-//	}
-	
-	private void searchAfter(Node indexNode, long time){
-		if(indexNode!=null){
-			Node leftNode=indexNode.getLeftNode();
-			Node rightNode=indexNode.getRightNode();
-			long leftDep=leftNode.getData().getDepTime();
-			long rightDep=rightNode.getData().getDepTime();
-			
-			if(leftDep<time && rightDep<time){
-				//Check both children
-				searchAfter(leftNode, time);
-				searchAfter(rightNode, time);
-			}else if(leftDep<time && rightDep>time){
-				//Check only left child
-				searchAfter(leftNode, time);
-			}else if(leftDep>time && rightDep<time){
-				//Check only right child
-				searchAfter(rightNode, time);
-			}
-		}
-	}
 	/**
 	 * Ψάχνει για πτήσεις στο δένδρο που έχουν ημερομηνία αναχώρησης μέσα σε ένα
 	 * συγκεκριμένο διάστημα.
@@ -602,7 +540,6 @@ public class BinarySearchTree<E>{
 	private void searchPeriodDep(Node indexNode, Date startTime, Date finishTime){
 		//Αν ο τρέχων κόμβος δεν είναι null
 		if(indexNode!=null){
-			System.err.println(indexNode.getData().getFlightCode());
 			//Παίρνουμε την ημ. αναχ. του τρέχοντα κόμβου
 			long indexDep=indexNode.getData().getDepartureTime().getTime();
 			//Αν η ημ. αναχ. του τρέχοντα κόμβου είναι μεταξύ του συγκεκριμένου

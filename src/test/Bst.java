@@ -45,15 +45,15 @@ public class Bst {
 		//End of Add Test
 		
 		//Start of Get Test
-		Date depTime=new GregorianCalendar(2011,04,15,18,15).getTime();
+		/*Date depTime=new GregorianCalendar(2011,04,15,18,15).getTime();
 		long index=depTime.getTime();
 		Flights myFlight=bst.get(index);
 		System.out.println("FOUND: ");
-		System.out.println(myFlight);
+		System.out.println(myFlight);*/
 		//End of Get Test
 		
 		//Start of Remove Test
-		bst.remove(myFlight);
+		//bst.remove(myFlight);
 		System.out.println(bst);
 		//End of Remove Test
 	}

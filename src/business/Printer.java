@@ -106,11 +106,4 @@ public class Printer {
 		
 		return seBuild.toString();
 	}
-	public static String printSearchAf(){
-		StringBuilder seABuild=new StringBuilder();
-		seABuild.append("Enter time: (YYYY:MM:DD:HH:MM)");
-		seABuild.append("\n");
-		
-		return seABuild.toString();
-	}
 }
