@@ -1,1 +1,3 @@
-Passa Tempo
+* Για να κάνουμε build τον πηγαίο κώδικα τρέχουμε το script jarArchive
+* Για να ξεκινήσει η εφαρμογή εκτελούμε java -jar DataStruct2.jar
+* Αν θέλουμε να αποσυμπιέσουμε το jar εκτελούμε jar xf DataStruct2.jar
