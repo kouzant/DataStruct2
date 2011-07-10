@@ -2,10 +2,7 @@ package structure;
 
 import entities.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Date;
-import java.util.Iterator;
 
 /**
  * Κλάση που αντιπροσωπεύει ένα κόμβο στο δυαδικό δένδρο αναζήτησης.
